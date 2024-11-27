@@ -11,7 +11,8 @@ jobs:
 
     steps:
       - name: SSH로 EC2 에 접속하기
-        uses: appleboy/ssh-action@v1.0.3
+        #uses: appleboy/ssh-action@v1.0.3
+        uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
