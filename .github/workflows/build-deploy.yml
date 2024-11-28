@@ -37,8 +37,6 @@ jobs:
           EC2_HOST: ${{ secrets.EC2_HOST }}
           EC2_USER: ${{ secrets.EC2_USERNAME }}
         run: |
-          echo "scp -i ~/.ssh/id_rsa -o 'StrictHostKeyChecking=no' build/libs/*SNAPSHOT.jar $EC2_USER@$EC2_HOST:/home/ubuntu/app.jar"
-          
-          echo "ssh -i ~/.ssh/id_rsa -o 'StrictHostKeyChecking=no' $EC2_USER@$EC2_HOST:'nohup java -jar /home/ubuntu/app.jar > .output.log 2>&1 &'"
           scp -i ~/.ssh/id_rsa -o "StrictHostKeyChecking=no" build/libs/*SNAPSHOT.jar $EC2_USER@$EC2_HOST:/home/ubuntu/app.jar
-          ssh -i ~/.ssh/id_rsa -o "StrictHostKeyChecking=no" $EC2_USER@$EC2_HOST:"nohup java -jar /home/ubuntu/app.jar > .output.log 2>&1 &"
+          #ssh -i ~/.ssh/id_rsa -o "StrictHostKeyChecking=no" $EC2_USER@$EC2_HOST:"nohup java -jar /home/ubuntu/app.jar > .output.log 2>&1 &"          
+          ssh -i ~/.ssh/id_rsa -o "StrictHostKeyChecking=no" $EC2_USER@$EC2_HOST:"cp /home/ubuntu/app.jar /home/ubuntu/app.jar.bak"
