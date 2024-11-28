@@ -1,9 +1,10 @@
 name: Spring Boot 프로젝트를 EC2로 배포하기 연습
 
 on:
-  push:
-    branches:
-      - main
+  #push:
+  #  branches:
+  #    - main
+  workflow_dispatch:
 
 jobs:
   Deploy:
@@ -27,6 +28,6 @@ jobs:
             git pull origin main
             mkdir -p src/main/resources
             echo "$APPLICATION_PROPERTIES" > src/main/resources/application.yml
-            ./gradlew clean build
+            ./gradlew clean build     # .jar 파일 생성 - 전체 프로젝트를 빌드하고, 테스트도 확인/일반적인 CI/CD 파이프라인에서 자주 사용
             sudo fuser -k -n tcp 8080 || true
             nohup java -jar build/libs/*SNAPSHOT.jar > .output.log 2>&1 &
